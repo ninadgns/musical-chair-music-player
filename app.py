@@ -2,9 +2,17 @@ from random import randint
 from time import sleep
 from pygame import mixer
 import numpy as np
+from pathlib import Path
+import os
 
-songs = ["Acid ki.mp3", "chaina meye.mp3", "Coffin songs.mp3", "Danish.mp3", "Deora.mp3", "deshbashito.mp3", "Gajar nouka.mp3", "galaxy brain.mp3", "gigachad.mp3", "GP song.mp3", "its my life.mp3",
-         "Jadu habib.mp3", "local bus.mp3", "Murir tin.mp3", "nescafe.mp3", "Nouka marka.mp3", "Panjabiwala.mp3", "Physics song.mp3", "pran milk candy ya ya yo.mp3", "Putin.mp3", "Qurbani.mp3", "rick n roll.mp3", "Sangsad Tv.mp3", "USSR anthem.mp3"]
+file_path = Path(__file__).resolve().parent
+songs_folder = Path(file_path, 'songs')
+
+songs = []
+for file in os.listdir(songs_folder):
+    if file.endswith(".mp3"):
+        songs.append(os.path.join(songs_folder, file))
+
 totalSong = len(songs)
 songSecond = []
 for i in range(0, totalSong):
@@ -25,10 +33,11 @@ while (1):
     duration = min(50, max(5, int(np.random.normal(30, 10))))
     songSecond[songNo] += duration
     # np.random.normal()
-    print(songs[songNo]+" playing")
+    print(songs[songNo] + " playing")
     sleep(duration)
     mixer.music.pause()
-    keyInput = input("press any key to start, press 'r' to play this song again\n")
+    keyInput = input(
+        "press any key to start, press 'r' to play this song again\n")
 
 # while True:
 #     print("Press 'p' to pause")
